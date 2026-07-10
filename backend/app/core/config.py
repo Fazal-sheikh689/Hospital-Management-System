@@ -10,6 +10,14 @@ class Settings(BaseSettings):
     ALGORITHM: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int
 
+    @property
+    def DATABASE_URL(self):
+        return (
+            f"mssql+pyodbc://@{self.DB_SERVER}/{self.DB_DATABASE}"
+            f"?driver={self.DB_DRIVER}"
+            "&trusted_connection=yes"
+        )
+
     class Config:
         env_file = ".env"
 
